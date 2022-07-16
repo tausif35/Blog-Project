@@ -46,41 +46,41 @@ userRouter
     [
       check("name", "Name field can not be empty.")
         .optional({ nullable: true })
-        .notEmpty(),
-      check("email", "Invalid email.").optional({ nullable: true }).isEmail(),
-      // check("gender", "Gender field can not be empty.")
-      //   .optional({ nullable: true })
-      //   .notEmpty(),
-      // check(
-      //   "dateOfBirth",
-      //   "Inavlid Date of Birth. A valid date format required."
-      // )
-      //   .optional({ nullable: true })
-      //   .trim()
-      //   .isDate(),
+        .notEmpty().withMessage("name not valid"),
+      check("email", "Invalid email.").optional({ nullable: true }).isEmail().withMessage("email not valid"),
+      check("gender", "Gender field can not be empty.")
+        .optional({ nullable: true })
+        .notEmpty().withMessage("gender not valid"),
       check(
-        "password",
-        "Invalid Password. Password cannot be empty."
-      ).notEmpty(),
+        "dateOfBirth",
+        "Inavlid Date of Birth. A valid date format required."
+      )
+        .optional({ nullable: true })
+        .trim()
+        .isDate().withMessage("dob not valid"),
+      // check(
+      //   "password",
+      //   "Invalid Password. Password cannot be empty."
+      // ).notEmpty(),
     ],
     validationCheck,
     updateProfile
   )
-  .put(
-    protect,
-    [
-      check("oldPassword", "Old password required.").notEmpty(),
-      check("newPassword")
-        .notEmpty()
-        .withMessage("New password required.")
-        .isStrongPassword()
-        .withMessage(
-          "Invalid Password. Password must contain: at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character."
-        ),
-    ],
-    validationCheck,
-    updatePassword
-  );
+// .put(
+//   protect,
+//   [
+//     check("oldPassword", "Old password required.").notEmpty(),
+//     check("newPassword")
+//       .notEmpty()
+//       .withMessage("New password required.")
+//       .isStrongPassword()
+//       .withMessage(
+//         "Invalid Password. Password must contain: at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character."
+//       ),
+//   ],
+//   validationCheck,
+//   updatePassword
+// );
 
 userRouter.route("/").get(getAllUsers);
 

@@ -87,7 +87,7 @@ export const updateProfile = asyncHandler(async (req, res) => {
   console.log(req.body);
   const userId = req.user[User.userID];
 
-  const { name, email, dateOfBirth, gender, password } = req.body;
+  const { name, email, dateOfBirth, gender } = req.body;
 
   const [results] = await database.query(
     `SELECT * FROM ${User.tableName} WHERE ${User.userID} = '${userId}';`
@@ -100,7 +100,6 @@ export const updateProfile = asyncHandler(async (req, res) => {
   // );
 
   if (user) {
-    console.log(user)
     const [isEmailUsed] = await database.query(
       `SELECT ${User.email} FROM ${User.tableName} WHERE ${User.email} = '${email}';`
     );
@@ -116,8 +115,6 @@ export const updateProfile = asyncHandler(async (req, res) => {
          WHERE ${User.userID} = '${userId}';`
       );
 
-      console.log(rows);
-      console.log(user)
       res.json({
         userId,
         name: updatedName,

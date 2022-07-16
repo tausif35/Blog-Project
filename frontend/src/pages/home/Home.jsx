@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Posts from "../../components/posts/Posts";
+import Header from "../../components/header/Header";
 import "./home.css";
 import axios from "../../axios";
 import { useLocation } from "react-router";
@@ -29,6 +30,7 @@ export default function Home() {
   }, [search]);
   return (
     <>
+      <Header />
       <div className="home">
         <Posts posts={posts} />
       </div>

@@ -2,10 +2,8 @@ import "./post.css";
 import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
-  const PF = "http://localhost:5000/images/";
   return (
     <div className="post">
-      {post.photo && <img className="postImg" src={PF + post.photo} alt="" />}
       <div className="postInfo">
         <Link to={`/post/${post.blogId}`} className="link">
           <span className="postTitle">{post.title}</span>
@@ -15,7 +13,7 @@ export default function Post({ post }) {
           {new Date(post.dateCreated).toDateString()}
         </span>
       </div>
-      <p className="postDesc">{post.description}</p>
+      <p className="postDesc" style={{ textAlign: 'center' }}>{post.description}</p>
     </div>
   );
 }

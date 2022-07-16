@@ -4,14 +4,13 @@ import { Context } from "../../context/Context";
 import axios from "../../axios";
 
 export default function Settings() {
-  const [file, setFile] = useState(null);
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [dateOfBirth, setDob] = useState(null);
+  const [gender, setGender] = useState(null);
   const [success, setSuccess] = useState(false);
 
   const { user, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/"
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,25 +18,15 @@ export default function Settings() {
     const updatedUser = {
       name,
       email,
-      password,
+      dateOfBirth,
+      gender
     };
-    console.log(updatedUser)
-    if (file) {
-      const data = new FormData();
-      const filename = Date.now() + file.name;
-      data.append("name", filename);
-      data.append("file", file);
-      updatedUser.profilePic = filename;
-      try {
-        await axios.post("/upload", data);
-      } catch (err) { }
-    }
     try {
       const res = await axios.patch("/users/profile/", updatedUser);
-      // axios.patch("/users/profile /", body).then(res => { }).catch(err => { console.log(err) })
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
+      console.log(err)
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
@@ -46,25 +35,10 @@ export default function Settings() {
       <div className="settingsWrapper">
         <div className="settingsTitle">
           <span className="settingsUpdateTitle">Update Your Account</span>
-          <span className="settingsDeleteTitle">Delete Account</span>
+
         </div>
         <form className="settingsForm" onSubmit={handleSubmit}>
-          <label>Profile Picture</label>
-          <div className="settingsPP">
-            <img
-              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
-              alt=""
-            />
-            <label htmlFor="fileInput">
-              <i className="settingsPPIcon far fa-user-circle"></i>
-            </label>
-            <input
-              type="file"
-              id="fileInput"
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </div>
+
           <label>name</label>
           <input
             type="text"
@@ -77,10 +51,22 @@ export default function Settings() {
             placeholder={user.email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label>Password</label>
+          {/* <label>Password</label>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
+          /> */}
+          <label>Date Of Birth</label>
+          <input
+            type="date"
+            placeholder={user.dateOfBirth}
+            onChange={(e) => setDob(e.target.value)}
+          />
+          <label>Gender</label>
+          <input
+            type="text"
+            placeholder={user.gender}
+            onChange={(e) => setGender(e.target.value)}
           />
           <button className="settingsSubmit" type="submit">
             Update
