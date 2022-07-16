@@ -21,6 +21,7 @@
   margin: 10px;
   font-family: "Lora", serif;
   font-size: 28px;
+  margin-bottom: 30px;
 }
 
 .singlePostTitleInput {
@@ -38,13 +39,16 @@
 }
 
 .singlePostEdit {
-  float: right;
-  font-size: 16px;
+  position:fixed;
+  font-size: 30px;
+  bottom: 20px;
+  right: 20px;
 }
 
 .singlePostIcon {
   margin-left: 10px;
   cursor: pointer;
+  padding:10px
 }
 
 .singlePostIcon:first-child {
@@ -68,6 +72,7 @@
   color: #666;
   font-size: 18px;
   line-height: 25px;
+  margin-top: 50px;
 }
 
 .singlePostDesc::first-letter {
@@ -96,4 +101,9 @@
   cursor: pointer;
   align-self: flex-end;
   margin-top: 20px;
+}
+
+.singlePostAuthor, .singlePostDate{
+  text-align: center;
+  color: #666;
 }

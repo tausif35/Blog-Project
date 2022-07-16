@@ -2,8 +2,15 @@
   width: 385px;
   margin: 0px 25px 40px 25px;
   padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.501);
+  border: 1px solid rgba(0, 0, 0, 0.151);
   border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(68, 68, 68, 0.041);
+  text-decoration: none;
+  background-color: #d4fcca5e;
+}
+
+.post:hover{
+  box-shadow: none;
 }
 
 .postImg {
@@ -35,6 +42,7 @@
   font-weight: 700;
   margin-top: 15px;
   cursor: pointer;
+  color: black;
 }
 
 .postDate {

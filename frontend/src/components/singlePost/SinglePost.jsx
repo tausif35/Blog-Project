@@ -58,31 +58,30 @@ export default function SinglePost() {
         ) : (
           <h1 className="singlePostTitle">
             {title}
-            {post.name === user?.name && (
-              <div className="singlePostEdit">
-                <i
-                  className="singlePostIcon far fa-edit"
-                  onClick={() => setUpdateMode(true)}
-                ></i>
-                <i
-                  className="singlePostIcon far fa-trash-alt"
-                  onClick={handleDelete}
-                ></i>
-              </div>
-            )}
+
           </h1>
         )}
-        <div className="singlePostInfo">
-          <span className="singlePostAuthor">
-            Author:
-            <Link to={`/?user=${post.userId}`} className="link">
-              <b> {post.name}</b>
-            </Link>
-          </span>
-          <span className="singlePostDate">
-            {new Date(post.dateCreated).toDateString()}
-          </span>
-        </div>
+        <span className="singlePostAuthor">
+          Author:
+          <Link to={`/?user=${post.userId}`} className="link">
+            <b> {post.name}</b>
+          </Link>
+        </span>
+        <span className="singlePostDate">
+          {new Date(post.dateCreated).toDateString()}
+        </span>
+        {post.name === user?.name && (
+          <div className="singlePostEdit">
+            <i
+              className="singlePostIcon far fa-edit"
+              onClick={() => setUpdateMode(true)}
+            ></i>
+            <i
+              className="singlePostIcon far fa-trash-alt"
+              onClick={handleDelete}
+            ></i>
+          </div>
+        )}
         {updateMode ? (
           <textarea
             className="singlePostDescInput"

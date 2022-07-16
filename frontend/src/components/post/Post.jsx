@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
   return (
-    <div className="post">
+    <Link to={`/post/${post.blogId}`} className="post">
       <div className="postInfo">
-        <Link to={`/post/${post.blogId}`} className="link">
+        <div className="link">
           <span className="postTitle">{post.title}</span>
-        </Link>
+        </div>
         <hr />
         <span className="postDate">
           {new Date(post.dateCreated).toDateString()}
         </span>
       </div>
       <p className="postDesc" style={{ textAlign: 'center' }}>{post.description}</p>
-    </div>
+    </Link>
   );
 }
