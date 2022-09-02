@@ -1,4 +1,4 @@
-import axios from "../../axios";
+import axios from "../../service/api";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ export default function SinglePost() {
   useEffect(() => {
     console.log(path)
     const getPost = async () => {
-      const res = await axios.get("/blogs/blog/" + path);
+      const res = await axios().get("/blogs/blog/" + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.description);
@@ -27,14 +27,14 @@ export default function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/blogs/delete/${post.blogId}`);
+      await axios().delete(`/blogs/delete/${post.blogId}`);
       window.location.replace("/");
     } catch (err) { }
   };
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`/blogs/edit`, {
+      await axios().patch(`/blogs/edit`, {
 
         blogId: post.blogId,
         title,

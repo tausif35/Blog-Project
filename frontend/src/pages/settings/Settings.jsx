@@ -1,7 +1,7 @@
 import "./settings.css";
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
-import axios from "../../axios";
+import axios from "../../service/api";
 
 export default function Settings() {
   const [name, setname] = useState("");
@@ -22,7 +22,7 @@ export default function Settings() {
       gender
     };
     try {
-      const res = await axios.patch("/users/profile/", updatedUser);
+      const res = await axios().patch("/users/profile/", updatedUser);
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {

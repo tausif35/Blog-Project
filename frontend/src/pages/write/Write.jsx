@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./write.css";
-import axios from "../../axios";
+import axios from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Write() {
+  const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
 
@@ -13,8 +15,8 @@ export default function Write() {
       description
     };
     try {
-      const res = await axios.post("/blogs/write", newPost);
-      window.location.replace("/post/" + res.data.blogId);
+      const res = await axios().post("/blogs/write", newPost);
+      navigate("/post/" + res.data.blogId);
     } catch (err) { console.log(err) }
   };
   return (
@@ -42,5 +44,5 @@ export default function Write() {
         </button>
       </form>
     </div>
-  );
+  )
 }

@@ -2,32 +2,30 @@ import { useEffect, useState } from "react";
 import Posts from "../../components/posts/Posts";
 import Header from "../../components/header/Header";
 import "./home.css";
-import axios from "../../axios";
-import { useLocation } from "react-router";
+import axios from "../../service/api";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const { search } = useLocation();
-
+  const [searchParam] = useSearchParams();
+  const id = searchParam.get("user");
   useEffect(() => {
-    console.log(search)
-    if (search !== '') {
-      const id = search.split('=')[1];
+    if (id) {
       console.log(id)
       const fetchPosts = async () => {
-        const res = await axios.get("/blogs/user/" + id);
+        const res = await axios().get("/blogs/user/" + id);
         setPosts(res.data);
       };
       fetchPosts();
     }
     else {
       const fetchPosts = async () => {
-        const res = await axios.get("/blogs/");
+        const res = await axios().get("/blogs/");
         setPosts(res.data);
       };
       fetchPosts();
     }
-  }, [search]);
+  }, [id]);
   return (
     <>
       <Header />

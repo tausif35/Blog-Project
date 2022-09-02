@@ -1,27 +1,25 @@
-import axios from "../../axios";
+import axios from "../../service/api";
 import { useContext, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./login.css";
 
 export default function Login() {
+  const navigate = useNavigate()
   const userRef = useRef();
   const passwordRef = useRef();
   const { dispatch, isFetching } = useContext(Context);
-
-  useEffect(() => {
-    console.log(localStorage.getItem("user"));
-  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("/users/login", {
+      const res = await axios().post("/users/login", {
         username: userRef.current.value,
         password: passwordRef.current.value,
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      navigate("/")
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
     }

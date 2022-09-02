@@ -5,28 +5,26 @@ import Write from "./pages/write/Write";
 import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "./context/Context";
+import { Route, Outlet, Routes } from "react-router-dom";
+import Protected from "./components/protected";
+import UserPage from "./pages/users/UserPage";
+
 
 function App() {
-  const { user } = useContext(Context);
+
   return (
-    <Router>
-      <TopBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/register">{user ? <Home /> : <Register />}</Route>
-        <Route path="/login">{user ? <Home /> : <Login />}</Route>
-        <Route path="/write">{user ? <Write /> : <Register />}</Route>
-        <Route path="/settings">{user ? <Settings /> : <Register />}</Route>
-        <Route path="/post/:postId">
-          <Single />
-        </Route>
-      </Switch>
-    </Router>
+    <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route path="/" element={<Protected><TopBar /><Outlet /></Protected>}>
+        <Route index element={<Home />} />
+
+        <Route path="write" element={<Write />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="users" element={<UserPage />} />
+        <Route path="post/:postId" element={<Single />} />
+      </Route>
+    </Routes>
   );
 }
 

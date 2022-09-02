@@ -38,6 +38,8 @@
   border: none;
   padding: 20px;
   width: 70vw;
+  background-color: transparent;
+  border: 2px solid lightgrey;
 }
 
 .writeInput:focus {
@@ -47,6 +49,8 @@
 .writeText {
   font-size: 20px;
   height: 100vh;
+  background-color: transparent;
+  border: 2px solid lightgrey;
 }
 
 .writeSubmit {

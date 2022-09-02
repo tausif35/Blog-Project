@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
+import token from "../../service/token";
 import "./topbar.css";
 
 export default function TopBar() {
@@ -8,6 +9,7 @@ export default function TopBar() {
   const PF = "https://www.freeiconspng.com/thumbs/person-icon/person-icon-8.png"
 
   const handleLogout = () => {
+    token.removeUser();
     dispatch({ type: "LOGOUT" });
   };
   return (
@@ -25,6 +27,13 @@ export default function TopBar() {
               WRITE
             </Link>
           </li>
+
+          <li className="topListItem">
+            <Link className="link" to="/users">
+              USERS
+            </Link>
+          </li>
+
           <li className="topListItem" onClick={handleLogout}>
             {user && "LOGOUT"}
           </li>

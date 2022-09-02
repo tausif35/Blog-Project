@@ -40,7 +40,7 @@ export const signup = asyncHandler(async (req, res) => {
     const [rows] = await database.query(
       `INSERT INTO ${User.tableName} (${User.email}, ${User.password
       }, ${User.userName}, ${User.dob}, ${User.gender}) 
-       VALUES ('${email}', '${await hashPass(
+      VALUES ('${email}', '${await hashPass(
         password
       )}', '${name}','${dateOfBirth}','${gender}');`
     );

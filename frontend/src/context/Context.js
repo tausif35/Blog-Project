@@ -1,8 +1,9 @@
 import { createContext, useEffect, useReducer } from "react";
+import token from "../service/token";
 import Reducer from "./Reducer";
 
 const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: token.getUser(),
   isFetching: false,
   error: false,
 };
@@ -13,7 +14,9 @@ export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
+    if (state.user) {
+      token.setUser(state.user);
+    };
   }, [state.user]);
 
   return (

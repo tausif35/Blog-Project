@@ -1,30 +1,36 @@
-import axios from "../../axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "../../service/api";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./register.css";
+import { Context } from "../../context/Context";
+
 
 export default function Register() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("");
   const [error, setError] = useState(false);
+  const { dispatch } = useContext(Context);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
     try {
-      const res = await axios.post("/users/signup", {
+      const res = await axios().post("/users/signup", {
         name: username,
         email,
         password,
         gender,
         dateOfBirth
       });
-      res.data && window.location.replace("/login");
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      navigate("/")
     } catch (err) {
-      setError(true);
+      dispatch({ type: "LOGIN_FAILURE" });
     }
   };
   return (
